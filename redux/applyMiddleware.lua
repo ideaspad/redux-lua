@@ -3,10 +3,12 @@ local applyMiddleware = function(...)
     return function(oldCreateStore)
         return function(reducer, initState)
             local store = oldCreateStore(reducer, initState)
+            local simpleStore = {getState =  store.getState}
             local next = store.dispatch
             local temp = nil
-            for _, middleware in ipairs(middlewares) do
-                local func = middleware(store)
+            for index = #middlewares, 1, -1 do
+                local middleware= middlewares[index]
+                local func = middleware(simpleStore)
                 if temp == nil then
                     temp = func(next)
                 else
