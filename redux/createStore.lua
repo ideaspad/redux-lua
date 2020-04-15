@@ -1,4 +1,10 @@
-local createStore = function(reducer, initState)
+local createStore = nil
+createStore = function(reducer, initState, rewriteCreateStoreFunc)
+    if rewriteCreateStoreFunc then
+        local newCreateStore = rewriteCreateStoreFunc(createStore)
+        return newCreateStore(reducer, initState)
+    end
+
     local state = initState
     local listeners = {}
     local subscribe = function(listener)
