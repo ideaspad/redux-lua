@@ -1,4 +1,4 @@
-local combineReducers = function(reducers)
+local function combineReducers(reducers)
     local combination = function(state, action)
         state = state or {}
         local nextState = {}

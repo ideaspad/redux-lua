@@ -1,4 +1,4 @@
-local applyMiddleware = function(...)
+local function applyMiddleware(...)
     local middlewares = {...}
     return function(oldCreateStore)
         return function(reducer, initState)
@@ -8,12 +8,7 @@ local applyMiddleware = function(...)
             local temp = nil
             for index = #middlewares, 1, -1 do
                 local middleware= middlewares[index]
-                local func = middleware(simpleStore)
-                if temp == nil then
-                    temp = func(next)
-                else
-                    temp = func(temp)
-                end
+                temp = temp and middleware(simpleStore)(temp) or middleware(simpleStore)(next)
             end
             store.dispatch = temp or next
             return store

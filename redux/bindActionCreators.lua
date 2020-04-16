@@ -1,11 +1,11 @@
-function bindActionCreator(actionCreator, dispatch)
+local function bindActionCreator(actionCreator, dispatch)
     return function(...)
         return dispatch(actionCreator(...))
     end
 end
 
 
-local bindActionCreators = function(actionCreators, dispatch) 
+local function bindActionCreators(actionCreators, dispatch) 
     if type(actionCreators) == 'function' then
         return bindActionCreator(actionCreators, dispatch)
     end

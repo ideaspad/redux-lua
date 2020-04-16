@@ -1,5 +1,4 @@
-local createStore = nil
-createStore = function(reducer, initState, rewriteCreateStoreFunc)
+local function createStore(reducer, initState, rewriteCreateStoreFunc)
     if type(initState) == 'function' then
         rewriteCreateStoreFunc = initState
         initState = nil
